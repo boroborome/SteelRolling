@@ -22,19 +22,20 @@ Network 2 // 网络题目 (单行)
 // 测量长度
 LD     I0.7
 =      Q0.7
-TONR   T33, 32767
+TONR   T1, 32767
 
 Network 3
 // 测量长度
 LDN    I0.7
-MOVW   T33, VW100
+MOVW   T1, VW100
 AW>    VW100, 50
 ATT    VW100, VW0
+R      T1, 1
 
 Network 4
 // 测量长度
-LDN    I0.0
-R      T33, 1
+
+
 Network 5
 // 空闲状态
 LSCR   S0.0
