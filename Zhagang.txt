@@ -1,0 +1,128 @@
+TITLE=
+// 程序注释
+// 按 F1 获得帮助及举例程序
+//
+Network 1
+LD     SM0.1
+MOVW   +10, VW0
+FILL   0, VW2, 20
+
+
+Network 2 // 网络题目 (单行)
+//
+// 网络注释
+//
+LD     I0.0
+AN     T33
+TON    T33, 32767
+
+AW>    T33, 50
+MOVW   T33, VW100
+Network 3
+LDN    I0.0
+AW>    VW100, 50
+ATT    VW100, VW0
+MOVW   0, VW100
+
+S      Q0.1, 1
+TON    T103, +50
+
+Network 4
+LD     T103
+=      Q0.1
+
+Network 5
+Network 6
+Network 7
+Network 8
+Network 9
+Network 10
+Network 11
+Network 12
+Network 13
+Network 14
+Network 15
+Network 16
+Network 17
+Network 18
+Network 19
+Network 20
+Network 21
+Network 22
+Network 23
+Network 24
+Network 25
+Network 26
+Network 27
+Network 28
+Network 29
+Network 30
+Network 31
+Network 32
+Network 33
+Network 34
+Network 35
+Network 36
+Network 37
+Network 38
+Network 39
+Network 40
+Network 41
+Network 42
+Network 43
+Network 44
+Network 45
+Network 46
+Network 47
+Network 48
+Network 49
+Network 50
+Network 51
+Network 52
+Network 53
+Network 54
+Network 55
+Network 56
+Network 57
+Network 58
+Network 59
+Network 60
+Network 61
+Network 62
+Network 63
+Network 64
+Network 65
+Network 66
+Network 67
+Network 68
+Network 69
+Network 70
+Network 71
+Network 72
+Network 73
+Network 74
+Network 75
+Network 76
+Network 77
+Network 78
+Network 79
+Network 80
+Network 81
+Network 82
+Network 83
+Network 84
+Network 85
+Network 86
+Network 87
+Network 88
+Network 89
+Network 90
+Network 91
+Network 92
+Network 93
+Network 94
+Network 95
+Network 96
+Network 97
+Network 98
+Network 99
