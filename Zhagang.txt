@@ -16,11 +16,11 @@ Network 1
 LD     SM0.1
 MOVW   +20, VW0
 FILL   0, VW2, 20
-S      S0.0, 1
+MOVB   1, SB0
 
 Network 2
 LD     I0.7
-=      Q0.7
+=      Q1.0
 TONR   T1, 32767
 
 Network 3 //  网络题目 (单行)
@@ -34,16 +34,30 @@ R      T1, 1
 Network 4
 //  空闲状态
 LD     S0.0
+MOVB   1, QB0
+MOVW   VW2, AC1
+AENO
+AW<>   AC1, 0
 FIFO   VW0, VW102
+AENO
 AW>    VW102, 50
-// 调整Q4位置
-MOVB   2#10, SB0
+MOVB   2, SB0
+
 
 Network 5
-//  测量长度
-Network 6
-//  空闲状态
+// 等待状态
+LD     S0.1
+MOVB   3, QB0
+//模拟运行状态
+TON    T103, +50
+S      Q0.2, 1
 
+Network 6
+// 运行状态
+//模拟监测电流减退
+LD     T103
+MOVB   1, SB0
+MOVB   1, QB0
 
 Network 7
 //  等待状态
