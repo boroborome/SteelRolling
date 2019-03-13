@@ -1,40 +1,70 @@
-TITLE=
-// 程序注释
-// 按 F1 获得帮助及举例程序
+TITLE=I0.7：高温金属监测器
+// I0.6:Q4,电机电流
+//
+// S0.0: Q4空闲状态
+// S0.1: Q4等待中
+// S0.2: Q4运行中
+//
+// Q0.7：正在测量长度
+// Q0.6：空闲
+// Q0.5: 等待
+// Q0.4：运行中
+//
+// VW0:钢坯长度表
 //
 Network 1
 LD     SM0.1
 MOVW   +10, VW0
 FILL   0, VW2, 20
-
+S      S0.0, 1
 
 Network 2 // 网络题目 (单行)
-//
-// 网络注释
-//
-LD     I0.0
-AN     T33
-TON    T33, 32767
+// 测量长度
+LD     I0.7
+=      Q0.7
+TONR   T33, 32767
 
-AW>    T33, 50
-MOVW   T33, VW100
 Network 3
-LDN    I0.0
+// 测量长度
+LDN    I0.7
+MOVW   T33, VW100
 AW>    VW100, 50
 ATT    VW100, VW0
-MOVW   0, VW100
-
-S      Q0.1, 1
-TON    T103, +50
 
 Network 4
-LD     T103
-=      Q0.1
-
+// 测量长度
+LDN    I0.0
+R      T33, 1
 Network 5
+// 空闲状态
+LSCR   S0.0
+FIFO   VW0, VW101
+AW>    VW101, 50
+// 调整Q4位置
+SCRT   S0.1
+CALL   SBR0
+SCRE
+
+
 Network 6
+// 等待状态
+LSCR   S0.1
+LD     I0.6
+SCRT   S0.2
+CALL   SBR0
+SCRE
+
 Network 7
+// 运行状态
+LSCR   S0.2
+TOF    T103, +50
+CALL   SBR0
+SCRE
+
 Network 8
+LD     T103
+SCRT   S0.0
+
 Network 9
 Network 10
 Network 11
