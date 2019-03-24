@@ -26,6 +26,7 @@ AENO
 FILL   0, VW202, 20
 LPP
 MOVB   1, SB0
+
 Network 2
 LD     I0.7
 =      Q1.0
@@ -34,9 +35,9 @@ TONR   T1, 32767
 Network 3 //  网络题目 (单行)
 //  测量长度
 LDN    I0.7
-MOVW   T1, VW100
-AW>    VW100, 50
-ATT    VW100, VW0
+MOVW   T1, AC1
+AW>    AC1, 50
+ATT    AC1, VW0
 R      T1, 1
 
 Network 4

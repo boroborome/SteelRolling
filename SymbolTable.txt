@@ -1,0 +1,11 @@
+billitLenTable	VW0	Table length is 20
+billitLenTableSize	VW2
+
+billitLenUsedTable	VW200
+billitLenUsedTableSize	VW202
+StatusK1	SB0
+LightHotDetect	Q1.0
+electricityK1	VW50	AIW1
+
+hotDetect	I0.7
+ParamDiction	VW300	should in data block
