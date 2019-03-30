@@ -9,3 +9,6 @@ electricityK1	VW50	AIW1
 
 hotDetect	I0.7
 ParamDiction	VW300	should in data block
+CHINA EVERBRIGHT BANK CO., LTD
+
+EVERCNBJBUS

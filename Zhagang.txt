@@ -1,56 +1,49 @@
-TITLE=I0.7：高温金属监测器
-// I0.6:Q4,电机电流,当前使用T1模拟
-//
-// S0.0: Q4空闲状态
-// S0.1: Q4等待中
-// S0.2: Q4运行中
-//
-// Q1.0：正在测量长度
-// Q0.6：空闲
-// Q0.5: 等待
-// Q0.4：运行中
-//
-// VW0:钢坯长度表
-// VW200:已经使用的钢坯长度
+TITLE=
 Network 1
 LD     SM0.1
 LPS
-MOVW   +20, VW0
-AENO
-FILL   0, VW2, 20
-
-LRD
-
 MOVW   +20, VW200
 AENO
 FILL   0, VW202, 20
+
+LRD
+
+MOVW   +20, VW302
+AENO
+FILL   0, VW300, 20
 LPP
 MOVB   1, SB0
 
 Network 2
 LD     I0.7
 =      Q1.0
-TONR   T1, 32767
+TONR   T0, 32767
 
 Network 3 //  网络题目 (单行)
 //  测量长度
 LDN    I0.7
-MOVW   T1, AC1
+MOVW   T0, AC1
 AW>    AC1, 50
-ATT    AC1, VW0
-R      T1, 1
+ATT    AC1, VW200
+R      T0, 1
 
 Network 4
 //  空闲状态
 LD     S0.0
 MOVB   1, QB0                      // 空闲亮灯
-MOVW   VW2, AC1                    // 确定测量长度队列是否有值
+MOVW   VW202, AC1                  // 确定测量长度队列是否有值
 AENO
 AW<>   AC1, 0
-FIFO   VW0, VW102
+FIFO   VW200, AC1
 AENO
-AW>    VW102, 50
-ATT    VW102, VW200
+AW>    AC1, 50
+MOVR   AC1, VD80
+AENO
+MOVR   VD80, VD84
+AENO
+MOVW   VW10, AC1
+AENO
+*R     AC1, VD84
 AENO
 MOVB   2, SB0                      // 调整状态
 
