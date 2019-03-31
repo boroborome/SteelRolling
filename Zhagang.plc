@@ -34,8 +34,9 @@ AENO
 LPS
   AW= BilletTimeTableSize,0
   LPS
-    // MonitorOutputVoltage=ZeroK1Gap/MonitorGapRate
     MOVR   ZeroK1Gap, MonitorOutputVoltage
+    AENO
+    -R K1GapWhenMonitorIn0,MonitorOutputVoltage
     AENO
     /R     MonitorGapRate, MonitorOutputVoltage
 
@@ -92,9 +93,11 @@ LPP
     AENO
     MOVR   AC1, TargetK1Gap
 
-  // MonitorOutputVoltage=TargetK1Gap/MonitorGapRate
+  // MonitorOutputVoltage=(TargetK1Gap-K1GapWhenMonitorIn0)/MonitorGapRate
   LRD
     MOVR   TargetK1Gap, MonitorOutputVoltage
+    AENO
+    -R K1GapWhenMonitorIn0,MonitorOutputVoltage
     AENO
     /R     MonitorGapRate, MonitorOutputVoltage
 

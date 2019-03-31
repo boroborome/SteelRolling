@@ -5,4 +5,5 @@ BilletWidth 225.0
 BilletHeight 165.0
 BilletSpeed 5.0
 ZeroK1Gap 5.0
-MonitorGapRate 0.1
+MonitorGapRate	0.1
+K1GapWhenMonitorIn0	5.0

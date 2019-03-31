@@ -1,26 +1,27 @@
-TargetSteelLength	VD150
-TargetSteelWidth	VD154
-ExpectBilletLength	VD158
-BilletWidth	VD162
-BilletHeight	VD166
-BilletSpeed	VD170
-ZeroK1Gap	VD174
+TargetSteelLength	VD150	mm
+TargetSteelWidth	VD154	mm
+ExpectBilletLength	VD158	mm
+BilletWidth	VD162	mm
+BilletHeight	VD166	mm
+BilletSpeed	VD170	mm/ms
+ZeroK1Gap	VD174	mm
 
 LightHotDetect	Q1.0
 HotDetect	I0.7
 ParamDiction	VD400
-ElectricityK1	VW50
+ElectricityK1	VW50	a
 MonitorGapRate	VD20
-MaxMonitorOutput	VW24
-MinMonitorOutput	VW26
+MaxMonitorOutput	VW24	bit
+MinMonitorOutput	VW26	bit
+K1GapWhenMonitorIn0	VD30	mm
 
 StatusK1	SB0
-CurrentBilletTime	VD80
-CurrentBilletLength	VD84
-DeltaK1Gap	VD88
-TargetK1Gap	VD92
-MonitorOutputVoltage	VD96
-MonitorOutput	VD100
+CurrentBilletTime	VD80	ms
+CurrentBilletLength	VD84	mm
+DeltaK1Gap	VD88	mm
+TargetK1Gap	VD92	mm
+MonitorOutputVoltage	VD96	v
+MonitorOutput	VD100	bit
 
 BilletTimeTable	VW200
 BilletTimeTableSize	VW202
