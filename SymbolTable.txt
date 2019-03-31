@@ -9,7 +9,8 @@ ZeroK1Gap	VD174	mm
 LightHotDetect	Q1.0
 HotDetect	I0.7
 ParamDiction	VD400
-ElectricityK1	VW50	a
+ElectricityK1	AIW0	a
+ElectricityK1Working	VW52	a
 MonitorGapRate	VD20
 MaxMonitorOutput	VW24	bit
 MinMonitorOutput	VW26	bit

@@ -135,12 +135,21 @@ Network 5
 LD     S0.1
 MOVB   3, QB0                      //等待状态灯
 //模拟运行状态
-TON    T103, +100
+TON    T103, +200
+AW> ElectricityK1,ElectricityK1Working
+MOVB   4, SB0                      // 调整状态
+AENO
+R      T103, 1
 
 Network 6
 // 运行状态
-//模拟监测电流减退
+LD     S0.2
+MOVB   7, QB0                      //运行状态灯
+AW< ElectricityK1,ElectricityK1Working
+MOVB   1, SB0                      // 调整状态
+
+Network 7
+//Timeout
 LD     T103
 R      T103, 1
 MOVB   1, SB0
-MOVB   1, QB0
