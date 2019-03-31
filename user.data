@@ -1,8 +1,8 @@
-TargetSteelLength 60000
-TargetSteelWidth 250
-ExpectBilletLength 5000
-BilletWidth 225
-BilletHeight 165
-BilletSpeed 5
+TargetSteelLength 60000.0
+TargetSteelWidth 250.0
+ExpectBilletLength 5000.0
+BilletWidth 225.0
+BilletHeight 165.0
+BilletSpeed 5.0
 ZeroK1Gap 5.0
 MonitorGapRate 0.1

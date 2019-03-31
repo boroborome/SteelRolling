@@ -32,6 +32,23 @@ LD     S0.0
 MOVB   1, QB0                      // 空闲亮灯
 AENO
 LPS
+  AW= BilletTimeTableSize,0
+  LPS
+    // MonitorOutputVoltage=ZeroK1Gap/MonitorGapRate
+    MOVR   ZeroK1Gap, MonitorOutputVoltage
+    AENO
+    /R     MonitorGapRate, MonitorOutputVoltage
+
+  // MonitorOutput=MonitorOutputVoltage/(10/32767)
+  LPP
+    MOVR   MonitorOutputVoltage, AC1
+    AENO
+    *R     32767.0, AC1
+    AENO
+    /R     10.0, AC1
+    AENO
+    MOVR   AC1, MonitorOutput
+LPP
   MOVW   BilletTimeTableSize, AC1
   AENO
   AW<>   AC1, 0
@@ -46,48 +63,24 @@ LPS
 
   // CurrentBilletLength=CurrentBilletTime*BilletSpeed
   LRD
-    ITD    BilletSpeed, AC1
-    AENO
-    DTR    AC1, AC1
-    AENO
     MOVR   CurrentBilletTime, CurrentBilletLength
     AENO
-    *R     AC1, CurrentBilletLength
+    *R     BilletSpeed, CurrentBilletLength
 
   // DeltaK1Gap=(CurrentBilletLength-ExpectBilletLength)
   // *BilletWidth*BilletHeight/(TargetSteelWidth*TargetSteelLength)
   LRD
     MOVR   CurrentBilletLength, AC1
     AENO
-    ITD    ExpectBilletLength, AC2
+    -R     ExpectBilletLength, AC1
     AENO
-    DTR    AC2, AC2
+    *R     BilletWidth, AC1
     AENO
-    -R     AC2, AC1
+    *R     BilletHeight, AC1
     AENO
-    ITD    BilletWidth, AC2
+    /R     TargetSteelWidth, AC1
     AENO
-    DTR    AC2, AC2
-    AENO
-    *R     AC2, AC1
-    AENO
-    ITD    BilletHeight, AC2
-    AENO
-    DTR    AC2, AC2
-    AENO
-    *R     AC2, AC1
-    AENO
-    ITD    TargetSteelWidth, AC2
-    AENO
-    DTR    AC2, AC2
-    AENO
-    /R     AC2, AC1
-    AENO
-    ITD    TargetSteelLength, AC2
-    AENO
-    DTR    AC2, AC2
-    AENO
-    /R     AC2, AC1
+    /R     TargetSteelLength, AC1
     AENO
     MOVR   AC1, DeltaK1Gap
 
@@ -131,24 +124,6 @@ LPS
       MOVD 0,HistoryIndex
   LPP
     MOVB   2, SB0                      // 调整状态
-
-LPP
-  AW= BilletTimeTableSize,0
-  LPS
-    // MonitorOutputVoltage=ZeroK1Gap/MonitorGapRate
-    MOVR   ZeroK1Gap, MonitorOutputVoltage
-    AENO
-    /R     MonitorGapRate, MonitorOutputVoltage
-
-  // MonitorOutput=MonitorOutputVoltage/(10/32767)
-  LPP
-    MOVR   MonitorOutputVoltage, AC1
-    AENO
-    *R     32767.0, AC1
-    AENO
-    /R     10.0, AC1
-    AENO
-    MOVR   AC1, MonitorOutput
 
 
 
