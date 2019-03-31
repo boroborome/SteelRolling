@@ -32,15 +32,15 @@ Network 4
 LD     S0.0
 MOVB   1, QB0                      // 空闲亮灯
 AENO
-LPS //1
-  MOVW   BilletTimeTableSize, AC1                  // 确定测量长度队列是否有值
+LPS
+  MOVW   BilletTimeTableSize, AC1
   AENO
   AW<>   AC1, 0
   FIFO   BilletTimeTable, AC1
   AENO
   AW>    AC1, 50
   // CurrentBilletTime
-  LPS //2
+  LPS
     ITD    AC1, AC1
     AENO
     DTR    AC1, CurrentBilletTime
@@ -135,8 +135,6 @@ LPP
     /R     10.0, AC1
     AENO
     MOVR   AC1, MonitorOutput
-
-
 
 
 
