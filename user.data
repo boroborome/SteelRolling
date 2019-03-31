@@ -1,0 +1,7 @@
+TargetSteelLength:VW0 60000
+TargetSteelWidth:VW2 250
+ExpectBilletLength:VW4 5000
+BilletWidth:VW6 225
+BilletHeight:VW8 165
+BilletSpeed:VW10 5000
+ZeroK1Gap:VD12 5.0

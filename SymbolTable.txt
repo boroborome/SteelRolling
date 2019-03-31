@@ -1,14 +1,29 @@
-billitLenTable	VW0	Table length is 20
-billitLenTableSize	VW2
+TargetSteelLength	VW0	mm
+TargetSteelWidth	VW2	mm
+ExpectBilletLength	VW4	mm
+BilletWidth	VW6	mm
+BilletHeight	VW8	mm
+BilletSpeed	VW10	mm/ms
+ZeroK1Gap	VD12	mm
 
-billitLenUsedTable	VW200
-billitLenUsedTableSize	VW202
-StatusK1	SB0
 LightHotDetect	Q1.0
-electricityK1	VW50	AIW1
+HotDetect	I0.7
+ParamDiction	VW400
+ElectricityK1	VW50	a
+MonitorGapRate	VD20
+MaxMonitorOutput	VW24	bit
+MinMonitorOutput	VW26	bit
 
-hotDetect	I0.7
-ParamDiction	VW300	should in data block
-CHINA EVERBRIGHT BANK CO., LTD
+StatusK1	SB0
+CurrentBilletTime	VD80	ms
+CurrentBilletLength	VD84	mm
+DeltaK1Gap	VD88	mm
+TargetK1Gap	VD92	mm
+MonitorOutputVoltage	VD96	v
+MonitorOutput	VD100	bit
 
-EVERCNBJBUS
+BilletTimeTable	VW200
+BilletTimeTableSize	VW202
+
+History	VW300
+HistorySize	VW302

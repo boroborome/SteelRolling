@@ -2,15 +2,15 @@ TITLE=
 Network 1
 LD     SM0.1
 LPS
-MOVW   +20, VW200
+MOVW   +20, BilletTimeTable
 AENO
-FILL   0, VW202, 20
+FILL   0, BilletTimeTableSize, 20
 
 LRD
 
-MOVW   +20, VW302
+MOVW   +20, History
 AENO
-FILL   0, VW300, 20
+FILL   0, HistorySize, 20
 LPP
 MOVB   1, SB0
 
@@ -24,28 +24,120 @@ Network 3 //  网络题目 (单行)
 LDN    I0.7
 MOVW   T0, AC1
 AW>    AC1, 50
-ATT    AC1, VW200
+ATT    AC1, BilletTimeTable
 R      T0, 1
 
 Network 4
 //  空闲状态
 LD     S0.0
 MOVB   1, QB0                      // 空闲亮灯
-MOVW   VW202, AC1                  // 确定测量长度队列是否有值
 AENO
-AW<>   AC1, 0
-FIFO   VW200, AC1
-AENO
-AW>    AC1, 50
-MOVR   AC1, VD80
-AENO
-MOVR   VD80, VD84
-AENO
-MOVW   VW10, AC1
-AENO
-*R     AC1, VD84
-AENO
-MOVB   2, SB0                      // 调整状态
+LPS //1
+  MOVW   BilletTimeTableSize, AC1                  // 确定测量长度队列是否有值
+  AENO
+  AW<>   AC1, 0
+  FIFO   BilletTimeTable, AC1
+  AENO
+  AW>    AC1, 50
+  // CurrentBilletTime
+  LPS //2
+    ITD    AC1, AC1
+    AENO
+    DTR    AC1, CurrentBilletTime
+
+  // CurrentBilletLength=CurrentBilletTime*BilletSpeed
+  LRD
+    ITD    BilletSpeed, AC1
+    AENO
+    DTR    AC1, AC1
+    AENO
+    MOVR   CurrentBilletTime, CurrentBilletLength
+    AENO
+    *R     AC1, CurrentBilletLength
+
+  // DeltaK1Gap=(CurrentBilletLength-ExpectBilletLength)
+  // *BilletWidth*BilletHeight/(TargetSteelWidth*TargetSteelLength)
+  LRD
+    MOVR   CurrentBilletLength, AC1
+    AENO
+    ITD    ExpectBilletLength, AC2
+    AENO
+    DTR    AC2, AC2
+    AENO
+    -R     AC2, AC1
+    AENO
+    ITD    BilletWidth, AC2
+    AENO
+    DTR    AC2, AC2
+    AENO
+    *R     AC2, AC1
+    AENO
+    ITD    BilletHeight, AC2
+    AENO
+    DTR    AC2, AC2
+    AENO
+    *R     AC2, AC1
+    AENO
+    ITD    TargetSteelWidth, AC2
+    AENO
+    DTR    AC2, AC2
+    AENO
+    /R     AC2, AC1
+    AENO
+    ITD    TargetSteelLength, AC2
+    AENO
+    DTR    AC2, AC2
+    AENO
+    /R     AC2, AC1
+    AENO
+    MOVR   AC1, DeltaK1Gap
+
+  // TargetK1Gap=ZeroK1Gap+DeltaK1Gap
+  LRD
+    MOVR   ZeroK1Gap, AC1
+    AENO
+    +R     DeltaK1Gap, AC1
+    AENO
+    MOVR   AC1, TargetK1Gap
+
+  // MonitorOutputVoltage=TargetK1Gap/MonitorGapRate
+  LRD
+    MOVR   TargetK1Gap, MonitorOutputVoltage
+    AENO
+    /R     MonitorGapRate, MonitorOutputVoltage
+
+  // MonitorOutput=MonitorOutputVoltage/(10/32767)
+  LRD
+    MOVR   MonitorOutputVoltage, AC1
+    AENO
+    *R     32767.0, AC1
+    AENO
+    /R     10.0, AC1
+    AENO
+    MOVR   AC1, MonitorOutput
+  LPP
+    MOVB   2, SB0                      // 调整状态
+
+LPP
+  AW= BilletTimeTableSize,0
+  LPS
+    // MonitorOutputVoltage=ZeroK1Gap/MonitorGapRate
+    MOVR   ZeroK1Gap, MonitorOutputVoltage
+    AENO
+    /R     MonitorGapRate, MonitorOutputVoltage
+
+  // MonitorOutput=MonitorOutputVoltage/(10/32767)
+  LPP
+    MOVR   MonitorOutputVoltage, AC1
+    AENO
+    *R     32767.0, AC1
+    AENO
+    /R     10.0, AC1
+    AENO
+    MOVR   AC1, MonitorOutput
+
+
+
 
 
 Network 5
@@ -62,136 +154,3 @@ LD     T103
 R      T103, 1
 MOVB   1, SB0
 MOVB   1, QB0
-
-Network 7
-//  等待状态
-
-
-Network 8
-//  运行状态
-
-
-Network 9
-
-
-Network 10
-
-
-Network 11 // 网络题目 (单行)
-// 测量长度
-
-
-Network 12
-// 测量长度
-
-
-Network 13
-// 测量长度
-
-
-Network 14
-// 空闲状态
-
-
-Network 15
-// 等待状态
-
-
-Network 16
-// 运行状态
-
-
-Network 17
-
-
-Network 18
-Network 19
-Network 20
-Network 21
-Network 22
-Network 23
-Network 24
-Network 25
-Network 26
-Network 27
-Network 28
-Network 29
-Network 30
-Network 31
-Network 32
-Network 33
-Network 34
-Network 35
-Network 36
-Network 37
-Network 38
-Network 39
-Network 40
-Network 41
-Network 42
-Network 43
-Network 44
-Network 45
-Network 46
-Network 47
-Network 48
-Network 49
-Network 50
-Network 51
-Network 52
-Network 53
-Network 54
-Network 55
-Network 56
-Network 57
-Network 58
-Network 59
-Network 60
-Network 61
-Network 62
-Network 63
-Network 64
-Network 65
-Network 66
-Network 67
-Network 68
-Network 69
-Network 70
-Network 71
-Network 72
-Network 73
-Network 74
-Network 75
-Network 76
-Network 77
-Network 78
-Network 79
-Network 80
-Network 81
-Network 82
-Network 83
-Network 84
-Network 85
-Network 86
-Network 87
-Network 88
-Network 89
-Network 90
-Network 91
-Network 92
-Network 93
-Network 94
-Network 95
-Network 96
-Network 97
-Network 98
-Network 99
-Network 100
-Network 101
-Network 102
-Network 103
-Network 104
-Network 105
-Network 106
-Network 107
-Network 108
