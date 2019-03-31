@@ -25,5 +25,5 @@ MonitorOutput	VD100	bit
 BilletTimeTable	VW200
 BilletTimeTableSize	VW202
 
-History	VW300
-HistorySize	VW302
+HistoryIndex	VD300
+HistoryData	VD304

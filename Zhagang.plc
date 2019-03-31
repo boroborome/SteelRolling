@@ -2,17 +2,16 @@ TITLE=
 Network 1
 LD     SM0.1
 LPS
-MOVW   +20, BilletTimeTable
-AENO
-FILL   0, BilletTimeTableSize, 20
+  MOVW   +20, BilletTimeTable
+  AENO
+  FILL   0, BilletTimeTableSize, 20
 
 LRD
-
-MOVW   +20, History
-AENO
-FILL   0, HistorySize, 20
+  FILL   0, HistoryData, 20
+  AENO
+  MOVD 0,HistoryIndex
 LPP
-MOVB   1, SB0
+  MOVB   1, SB0
 
 Network 2
 LD     I0.7
@@ -115,6 +114,21 @@ LPS
     /R     10.0, AC1
     AENO
     MOVR   AC1, MonitorOutput
+  LRD
+    MOVD &HistoryData,AC1
+    AENO
+    MOVD HistoryIndex,AC0
+    AENO
+    *D 28,AC0
+    AENO
+    +D AC0,AC1
+    AENO
+    BMD CurrentBilletTime,*AC1,6
+    AENO
+    INCD HistoryIndex
+    AENO
+    AD> HistoryIndex,10
+      MOVD 0,HistoryIndex
   LPP
     MOVB   2, SB0                      // 调整状态
 
