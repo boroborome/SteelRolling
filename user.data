@@ -1,13 +1,6 @@
+MonitorGapRate	1024
+MaxGapValue	0.00
+RuleCounterRate	1024
+ExpectBilletLength	37000.00
+StandardK1Gap	5.00
 TargetSteelLength	60000.00
-TargetSteelWidth	250.00
-ExpectBilletLength	5000.00
-BilletWidth	225.00
-BilletHeight	165.00
-BilletSpeed	5.00
-ZeroK1Gap	5.00
-
-MonitorGapRate	0.10
-K1GapWhenMonitorIn0	5.00
-ElectricityK1Working	100
-MaxMonitorOutput	3000
-MinMonitorOutput	-3000

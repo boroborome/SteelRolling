@@ -2,16 +2,16 @@ TITLE=
 Network 1
 LD     SM0.1
 LPS
-  MOVW   +20, BilletTimeTable
+  MOVW   +20, BilletCounterTable
   AENO
-  FILL   0, BilletTimeTableSize, 20
+  FILL   0, BilletCounterTableSize, 20
 
 LRD
   FILL   0, HistoryData, 20
   AENO
   MOVD 0,HistoryIndex
 LPP
-  MOVB   1, SB0
+  MOVB   2, SB0
 
 Network 2
 LD     I0.7
@@ -23,7 +23,7 @@ Network 3 //  网络题目 (单行)
 LDN    I0.7
 MOVW   T0, AC1
 AW>    AC1, 50
-ATT    AC1, BilletTimeTable
+ATT    AC1, BilletCounterTable
 R      T0, 1
 
 Network 4
@@ -32,7 +32,7 @@ LD     S0.0
 MOVB   1, QB0                      // 空闲亮灯
 AENO
 LPS
-  AW= BilletTimeTableSize,0
+  AW= BilletCounterTableSize,0
   LPS
     MOVR   ZeroK1Gap, MonitorOutputVoltage
     AENO
@@ -50,10 +50,10 @@ LPS
     AENO
     MOVR   AC1, MonitorOutput
 LPP
-  MOVW   BilletTimeTableSize, AC1
+  MOVW   BilletCounterTableSize, AC1
   AENO
   AW<>   AC1, 0
-  FIFO   BilletTimeTable, AC1
+  FIFO   BilletCounterTable, AC1
   AENO
   AW>    AC1, 50
   // CurrentBilletTime

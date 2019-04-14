@@ -1,31 +1,42 @@
-TargetSteelLength	VD150	mm
-TargetSteelWidth	VD154	mm
-ExpectBilletLength	VD158	mm
-BilletWidth	VD162	mm
-BilletHeight	VD166	mm
-BilletSpeed	VD170	mm/ms
-ZeroK1Gap	VD174	mm
-
 LightHotDetect	Q1.0
-HotDetect	I0.7
+ElectricityK1Working	I0.7
+BilletRuleCounter	I0.0
+BilletHotDetect	I0.2
+SteelRuleCounter	I0.1
+SteelHotDetect	I0.5
+MonitorCounter	I0.3
+	I0.4
+TravelSwitchLow	I1.1
+TravelSwitchHight	I1.2
+MonitorControlLow	Q1.1
+MonitorControlHight	Q1.2
+MonitorControlOffLine	I1.0
+
 ParamDiction	VD400
-ElectricityK1	AIW0	a
-ElectricityK1Working	VW52	a
-MonitorGapRate	VD20
-MaxMonitorOutput	VW24	bit
-MinMonitorOutput	VW26	bit
-K1GapWhenMonitorIn0	VD30	mm
+MonitorGapRate	VD0
+MaxGapValue	VD4	bit
+RuleCounterRate	VD8
+ExpectBilletLength	VD20	mm
+StandardK1Gap	VD24	mm
+TargetSteelLength	VD28	mm
+
+CP_IL1	VD40	mm
+CP_OG1	VD44	mm
+CP_OL1	VD48	mm
+CP_IL2	VD52	mm
+CP_OG2	VD56	mm
+CP_OL2	VD60	mm
 
 StatusK1	SB0
-CurrentBilletTime	VD80	ms
+CurrentBilletCount	VD80	bit
 CurrentBilletLength	VD84	mm
-DeltaK1Gap	VD88	mm
-TargetK1Gap	VD92	mm
-MonitorOutputVoltage	VD96	v
-MonitorOutput	VD100	bit
+IS_OW	VD88	mm
+OSX_OW	VD92	mm
+TargetOG	VD96	mm
+MonitorCounterTarget	VD100	bit
 
-BilletTimeTable	VW200
-BilletTimeTableSize	VW202
+BilletCounterTable	VW200
+BilletCounterTableSize	VW202
 
 HistoryIndex	VD300
 HistoryData	VD304
