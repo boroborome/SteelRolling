@@ -1,39 +1,39 @@
-LightHotDetect	Q1.0
+LightHotDetect	Q1.2
 ElectricityK1Working	I0.7
-BilletRuleCounter	I0.0
+BilletRuleCounter	HC0
 BilletHotDetect	I0.2
-SteelRuleCounter	I0.1
+SteelRuleCounter	HC3
 SteelHotDetect	I0.5
-MonitorCounter	I0.3
-	I0.4
-TravelSwitchLow	I1.1
-TravelSwitchHight	I1.2
-MonitorControlLow	Q1.1
-MonitorControlHight	Q1.2
-MonitorControlOffLine	I1.0
+MonitorCounter	HC4
+
+TravelSwitchLow	I1.0
+TravelSwitchHight	I1.1
+MonitorControlLow	Q1.0
+MonitorControlHight	Q1.1
+MonitorControlOffLine	I1.2
 
 ParamDiction	VD400
 MonitorGapRate	VD0
-MaxGapValue	VD4	bit
+MaxGapValue	VD4
 RuleCounterRate	VD8
-ExpectBilletLength	VD20	mm
-StandardK1Gap	VD24	mm
-TargetSteelLength	VD28	mm
+ExpectBilletLength	VD20
+StandardK1Gap	VD24
+TargetSteelLength	VD28
 
-CP_IL1	VD40	mm
-CP_OG1	VD44	mm
-CP_OL1	VD48	mm
-CP_IL2	VD52	mm
-CP_OG2	VD56	mm
-CP_OL2	VD60	mm
+CP_IL1	VD40
+CP_OG1	VD44
+CP_OL1	VD48
+CP_IL2	VD52
+CP_OG2	VD56
+CP_OL2	VD60
 
 StatusK1	SB0
-CurrentBilletCount	VD80	bit
-CurrentBilletLength	VD84	mm
-IS_OW	VD88	mm
-OSX_OW	VD92	mm
-TargetOG	VD96	mm
-MonitorCounterTarget	VD100	bit
+CurrentBilletCount	VD80
+CurrentBilletLength	VD84
+IS_OW	VD88
+OSX_OW	VD92
+TargetOG	VD96
+MonitorCounterTarget	VD100
 
 BilletCounterTable	VW200
 BilletCounterTableSize	VW202

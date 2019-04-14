@@ -12,7 +12,7 @@ LRD
   MOVD 0,HistoryIndex
 LPP
   MOVB   2, SB0
-  LD     SM0.1
+  MOVB 1,SB1
   MOVB   16#F8, SMB37
   HDEF   0, 0
 
@@ -153,8 +153,6 @@ LPP
   LPP
     MOVB   2, SB0                      // 调整状态
 
-
-
 Network 5
 // 等待状态
 LD     S0.1
@@ -178,3 +176,23 @@ Network 7
 LD     T103
 R      T103, 1
 MOVB   1, SB0
+
+Network 8
+LD S0.1
+LPS
+  A S1.0
+  S MonitorControlHight,1
+  A TravelSwitchHight
+  R MonitorControlHight,1
+  MOVD MonitorCounter,MaxGapValue
+  MOVB 2,SB1
+LRD
+  LD S1.1
+  S MonitorControlLow,1
+  A TravelSwitchLow
+  R MonitorControlLow,1
+  -D MonitorCounter,MaxGapValue
+  MOVD 0,SMD148
+  MOVB 1,SB1
+  MOVB 4,SB0
+LPP
