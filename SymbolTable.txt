@@ -1,9 +1,8 @@
-LightHotDetect	Q1.2
-ElectricityK1Working	I0.7
+ElectricityK1Working	I0.2
 BilletRuleCounter	HC0
-BilletHotDetect	I0.2
-SteelRuleCounter	HC3
-SteelHotDetect	I0.5
+BilletHotDetect	I0.1
+SteelRuleCounter	HC1
+SteelHotDetect	I0.7
 MonitorCounter	HC4
 
 TravelSwitchLow	I1.0
@@ -40,3 +39,4 @@ BilletCounterTableSize	VW202
 
 HistoryIndex	VD300
 HistoryData	VD304
+HistoryDataW	VW304

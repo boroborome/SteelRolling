@@ -16,14 +16,14 @@ LPP
   MOVB   16#F8, SMB37
   HDEF   0, 0
 
-  MOVB   16#F8, SMB137
-  HDEF   3, 0
+  MOVB   16#F8, SMB47
+  HDEF   1, 0
 
   MOVB   16#F8, SMB147
   HDEF   4, 3
 
   HSC    0
-  HSC    3
+  HSC    1
   HSC    4
 
 Network 2
@@ -34,7 +34,7 @@ LPS
   HSC 0
 LPP
   ED
-  MOVD HC0,AC1
+  MOVD BilletRuleCounter,AC1
   AD> AC1,10
   ATT    AC1, BilletCounterTable
 
@@ -43,17 +43,16 @@ Network 3
 LD     SteelHotDetect
 LPS
   EU
-  MOVD 0,SMD138
-  HSC 3
+  MOVD 0,SMD48
+  HSC 1
 LPP
   ED
-  MOVD HC3,AC1
+  MOVD SteelRuleCounter,AC1
   AD> AC1,10
   MOVD AC1,CP_OL2
 
 Network 4
-//  空闲状态
-LD     S0.0
+LD     S0.2
 MOVB   1, QB0                      // 空闲亮灯
 AENO
 LPS
