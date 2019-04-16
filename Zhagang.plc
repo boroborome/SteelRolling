@@ -7,12 +7,11 @@ LPS
   FILL   0, BilletCounterTableSize, 20
 
 LRD
-  FILL   0, HistoryData, 20
+  FILL   0, HistoryDataW, 20
   AENO
   MOVD 0,HistoryIndex
 LPP
-  MOVB   2, SB0
-  MOVB 1,SB1
+  MOVW   16#21, SW0
   MOVB   16#F8, SMB37
   HDEF   0, 0
 
@@ -192,6 +191,145 @@ LRD
   R MonitorControlLow,1
   -D MonitorCounter,MaxGapValue
   MOVD 0,SMD148
-  MOVB 1,SB1
-  MOVB 4,SB0
+  MOVW 16#41,SW0
 LPP
+
+Network 9
+LD S0.2
+LPS
+  A S1.0
+  AW> BilletCounterTableSize,0
+  FIFO   BilletCounterTable, AC1
+  AENO
+  AW>    AC1, 50
+  DTR AC1,CurrentBilletCount
+  AENO
+  MOVR CurrentBilletCount,CurrentBilletLength
+  AENO
+  /R  RuleCounterRate,CurrentBilletLength
+  AENO
+
+  LPS
+    AR> CP_OG2,0.0
+    MOVR CP_OG1,IS_OW
+    AENO
+    -R CP_OG2,IS_OW
+    AENO
+    MOVR CP_IL1,AC1
+    AENO
+    /R CP_OL1,AC1
+    AENO
+    MOVR CP_IL2,AC2
+    AENO
+    /R CP_OL2,AC2
+    AENO
+    -R AC2,AC1
+    AENO
+    /R IS_OW,AC1
+
+    //(OL2*OG2*IL1-IL2*OL1*OG1)/(IL2*OL1-OL2*IL1)
+    AENO
+    MOVR CP_OL2,AC1
+    AENO
+    *R CP_OG2,AC1
+    AENO
+    *R CP_IL1,AC1
+
+    AENO
+    MOVR CP_IL2,AC2
+    AENO
+    *R CP_OL1,AC2
+    AENO
+    *R CP_OG1,AC2
+    AENO
+    -R AC2,AC1
+
+    AENO
+    MOVR CP_IL2,AC2
+    AENO
+    *R CP_OL1,AC2
+
+    AENO
+    MOVR CP_OL2,AC3
+    AENO
+    *R CP_IL1,AC3
+    AENO
+    -R AC3,AC2
+
+    AENO
+    /R AC2,AC1
+    AENO
+    MOVR AC1,OSX_OW
+
+    //IL/OL*(IS_OW)-OSX_OW
+    AENO
+    MOVR IS_OW,AC1
+    AENO
+    *R CurrentBilletLength,AC1
+    AENO
+    /R TargetSteelLength,AC1
+    AENO
+    -R OSX_OW,AC1
+    AENO
+    MOVR AC1,TargetOG
+
+    //(TargetOG-3)*MonitorGapRate
+    AENO
+    -R 3.0,AC1
+    AENO
+    *R MonitorGapRate,AC1
+    AENO
+    MOVR AC1,MonitorCounterTarget
+    AENO
+    MOVW 16#42,SW0
+  LRD
+    AR<= CP_OG2,0.0
+    LPS
+      LPS
+        AR> CP_OG1,0.0
+        MOVR CP_IL1,AC1
+        AENO
+        MOVR CP_OG1,AC2
+      LPP
+        AR<= CP_OG1,0.0
+        MOVR ExpectBilletLength,AC1
+        AENO
+        MOVR StandardK1Gap,AC2
+    LRD
+      MOVR 0.1,AC3
+      LPS
+        AR< CurrentBilletLength,AC1
+        MOVR -0.1,AC3
+      LPP
+        +R AC3,AC2
+        AENO
+        MOVR TargetOG,AC2
+        AENO
+        MOVR AC2,AC1
+        AENO
+        -R 3.0,AC1
+        AENO
+        *R MonitorGapRate,AC1
+        AENO
+        MOVR AC1,MonitorCounterTarget
+        AENO
+        MOVW 16#42,SW0
+    LPP
+      BMD CP_IL1,CP_IL2,3
+      AENO
+      MOVR CurrentBilletLength,CP_IL1
+      AENO
+      MOVR TargetOG,CP_OG1
+      AENO
+      MOVR 0.0,CP_OL1
+  LPP
+
+LRD
+  A S1.1
+  MOVR 0.0,CP_OL1
+LRD
+  A S1.2
+  MOVR 0.0,CP_OL1
+LPP
+  A S1.3
+  MOVR 0.0,CP_OL1
