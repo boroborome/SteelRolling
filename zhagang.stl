@@ -1,0 +1,160 @@
+
+[LD     SM0.1] {
+  MOVW   +20, BilletCounterTable
+  FILL   0, BilletCounterTableSize, 20
+
+  FILL   0, HistoryDataW, 20
+  MOVD 0,HistoryIndex
+
+  MOVW   16#0201, SW0
+  MOVB   16#F8, SMB37
+  HDEF   0, 0
+
+  MOVB   16#F8, SMB47
+  HDEF   1, 0
+
+  MOVB   16#F8, SMB147
+  HDEF   4, 3
+
+  HSC    0
+  HSC    1
+  HSC    4
+}
+
+[LD     BilletHotDetect] {
+  [EU] {
+    MOVD 0,SMD38
+    HSC 0
+  }
+
+  [ED] {
+    MOVD BilletRuleCounter,AC1
+    [AD> AC1,10] {
+      ATT    AC1, BilletCounterTable
+    }
+  }
+}
+
+[LD     SteelHotDetect] {
+  [EU] {
+    MOVD 0,SMD48
+    HSC 1
+  }
+  [ED] {
+    MOVD SteelRuleCounter,AC1
+    [AD> AC1,10] {
+      MOVD AC1,CP_OL2
+    }
+  }
+}
+
+# Initialize Status
+[LD S0.1] {
+  [A S1.0] {
+    S MonitorControlHight,1
+    [A TravelSwitchHight] {
+      R MonitorControlHight,1
+      MOVD MonitorCounter,MaxGapValue
+      MOVB 2,SB1
+    }
+  }
+
+  [LD S1.1] {
+    S MonitorControlLow,1
+    [A TravelSwitchLow] {
+      R MonitorControlLow,1
+      -D MonitorCounter,MaxGapValue
+      MOVD 0,SMD148
+      MOVW 16#0401,SW0
+    }
+  }
+}
+
+# Working Status
+[LD S0.2] {
+  [A S1.0] { # Wait
+    [AW> BilletCounterTableSize,0] {
+      FIFO   BilletCounterTable, AC1
+      [AW>    AC1, 50] {
+        DTR AC1,CurrentBilletCount
+        MOVR CurrentBilletCount,CurrentBilletLength
+        /R  RuleCounterRate,CurrentBilletLength
+
+        # Calculate TargetOG
+        [AR> CP_OG2,0.0] {
+          MOVR CP_OG1,IS_OW
+          -R CP_OG2,IS_OW
+          MOVR CP_IL1,AC1
+          /R CP_OL1,AC1
+          MOVR CP_IL2,AC2
+          /R CP_OL2,AC2
+          -R AC2,AC1
+          /R IS_OW,AC1
+
+          #(OL2*OG2*IL1-IL2*OL1*OG1)/(IL2*OL1-OL2*IL1)
+          MOVR CP_OL2,AC1
+          *R CP_OG2,AC1
+          *R CP_IL1,AC1
+
+          MOVR CP_IL2,AC2
+          *R CP_OL1,AC2
+          *R CP_OG1,AC2
+          -R AC2,AC1
+
+          MOVR CP_IL2,AC2
+          *R CP_OL1,AC2
+
+          MOVR CP_OL2,AC3
+          *R CP_IL1,AC3
+          -R AC3,AC2
+
+          /R AC2,AC1
+          MOVR AC1,OSX_OW
+
+          # IL/OL*(IS_OW)-OSX_OW
+          MOVR IS_OW,AC1
+          *R CurrentBilletLength,AC1
+          /R TargetSteelLength,AC1
+          -R OSX_OW,AC1
+          MOVR AC1,TargetOG
+        }
+
+        [AR<= CP_OG2,0.0] {
+          [AR> CP_OG1,0.0] {
+            MOVR CP_IL1,AC1
+            MOVR CP_OG1,AC2
+          }
+          [AR<= CP_OG1,0.0] {
+            MOVR ExpectBilletLength,AC1
+            MOVR StandardK1Gap,AC2
+          }
+          MOVR 0.1,AC3
+          [AR< CurrentBilletLength,AC1] {
+            MOVR -0.1,AC3
+          }
+          +R AC3,AC2
+          MOVR AC2,TargetOG
+        }
+
+        # Calcualte MonitorCounterTarget
+        MOVR TargetOG,AC2
+        MOVR AC2,AC1
+        -R 3.0,AC1
+        *R MonitorGapRate,AC1
+        MOVR AC1,MonitorCounterTarget
+
+        # Move Block
+        BMD CP_IL1,CP_IL2,3
+        MOVR CurrentBilletLength,CP_IL1
+        MOVR TargetOG,CP_OG1
+        MOVR 0.0,CP_OL1
+
+        MOVW 16#0402,SW0
+      }
+    }
+  }
+
+  [A S1.1] {
+    MOVR 0.0,CP_OL1
+  }
+}
