@@ -1,6 +1,7 @@
-MonitorGapRate	1024
+MonitorGapRate	1024.0
 MaxGapValue	0.00
-RuleCounterRate	1024
+RuleCounterRate	1024.0
 ExpectBilletLength	37000.00
 StandardK1Gap	5.00
 TargetSteelLength	60000.00
+MonitorControlAccuracy	2

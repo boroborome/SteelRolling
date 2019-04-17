@@ -1,3 +1,4 @@
+LightHotDetect	Q1.2
 ElectricityK1Working	I0.2
 BilletRuleCounter	HC0
 BilletHotDetect	I0.1
@@ -15,6 +16,7 @@ ParamDiction	VD400
 MonitorGapRate	VD0
 MaxGapValue	VD4
 RuleCounterRate	VD8
+MonitorControlAccuracy	VD12
 ExpectBilletLength	VD20
 StandardK1Gap	VD24
 TargetSteelLength	VD28
@@ -25,14 +27,17 @@ CP_OL1	VD48
 CP_IL2	VD52
 CP_OG2	VD56
 CP_OL2	VD60
+CP_IL3	VD64
+CP_IL4	VD76
+CP_IL5	VD88
 
 StatusK1	SB0
-CurrentBilletCount	VD80
-CurrentBilletLength	VD84
-IS_OW	VD88
-OSX_OW	VD92
-TargetOG	VD96
-MonitorCounterTarget	VD100
+CurrentBilletCount	VD100
+CurrentBilletLength	VD104
+IS_OW	VD108
+OSX_OW	VD112
+TargetOG	VD116
+MonitorCounterTarget	VD120
 
 BilletCounterTable	VW200
 BilletCounterTableSize	VW202
