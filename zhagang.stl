@@ -43,7 +43,7 @@
   [ED] {
     MOVD SteelRuleCounter,AC1
     [AD> AC1,10] {
-      MOVD AC1,CP_OL2
+      MOVD AC1,CP_OL1
     }
   }
 }
@@ -171,9 +171,26 @@
       R MonitorControlLow,1
       MOVW 16#0404,SW0
     }
+    [A MonitorControlOffLine] {
+      R MonitorControlHight,1
+      R MonitorControlLow,1
+      MOVW 16#0404,SW0
+    }
   }
 
   [A S1.2] { # Ready To Work
-    
+    [A ElectricityK1Working] {
+      [A SteelHotDetect] {
+        MOVW 16#0408,SW0
+      }
+    }
+  }
+
+  [A S1.3] { # Working
+    [AN ElectricityK1Working] {
+      [AR> CP_OL1,0.0] {
+        MOVW 16#0401,SW0
+      }
+    }
   }
 }
