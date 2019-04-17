@@ -55,7 +55,7 @@
     [A TravelSwitchHight] {
       R MonitorControlHight,1
       MOVD MonitorCounter,MaxGapValue
-      MOVB 2,SB1
+      MOVW 16#0202,SW0
     }
   }
 
@@ -72,7 +72,7 @@
 
 # Working Status
 [LD S0.2] {
-  [A S1.0] { # Wait
+  [A S1.0] { # Waiting Billet
     [AW> BilletCounterTableSize,0] {
       FIFO   BilletCounterTable, AC1
       [AW>    AC1, 50] {
@@ -154,7 +154,26 @@
     }
   }
 
-  [A S1.1] {
-    MOVR 0.0,CP_OL1
+  [A S1.1] { # Seek Gap
+    MOVD MonitorCounterTarget,AC1
+    -D MonitorCounter,AC1
+    [AD> AC1,0] {
+      S MonitorControlHight,1
+      R MonitorControlLow,1
+    }
+    [AD< AC1,0] {
+      S MonitorControlLow,1
+      R MonitorControlHight,1
+      *D -1,AC1
+    }
+    [AD< AC1,MonitorControlAccuracy] {
+      R MonitorControlHight,1
+      R MonitorControlLow,1
+      MOVW 16#0404,SW0
+    }
+  }
+
+  [A S1.2] { # Ready To Work
+    
   }
 }
