@@ -85,11 +85,11 @@
         MOVR CurrentBilletCount,CurrentBilletLength
         /R  RuleCounterRate,CurrentBilletLength
 
-        # Calculate TargetOG
-        [AR> CP_OG2,0.0] {
+        # Calculate TargetDG
+        [AR> CP_DG2,0.0] {
           # IS_OW=(OG1-OG2)/(IL1/OL1-IL2/OL2)
-          MOVR CP_OG1,IS_OW
-          -R CP_OG2,IS_OW
+          MOVR CP_DG1,IS_OW
+          -R CP_DG2,IS_OW
           MOVR CP_IL1,AC1
           /R CP_OL1,AC1
           MOVR CP_IL2,AC2
@@ -99,12 +99,12 @@
 
           #OSX_OW=(OL2*OG2*IL1-IL2*OL1*OG1)/(IL2*OL1-OL2*IL1)
           MOVR CP_OL2,AC1
-          *R CP_OG2,AC1
+          *R CP_DG2,AC1
           *R CP_IL1,AC1
 
           MOVR CP_IL2,AC2
           *R CP_OL1,AC2
-          *R CP_OG1,AC2
+          *R CP_DG1,AC2
           -R AC2,AC1
 
           MOVR CP_IL2,AC2
@@ -122,15 +122,15 @@
           *R CurrentBilletLength,AC1
           /R TargetSteelLength,AC1
           -R OSX_OW,AC1
-          MOVR AC1,TargetOG
+          MOVR AC1,TargetDG
         }
 
-        [AR<= CP_OG2,0.0] {
-          [AR> CP_OG1,0.0] {
+        [AR<= CP_DG2,0.0] {
+          [AR> CP_DG1,0.0] {
             MOVR CP_IL1,AC1
-            MOVR CP_OG1,AC2
+            MOVR CP_DG1,AC2
           }
-          [AR<= CP_OG1,0.0] {
+          [AR<= CP_DG1,0.0] {
             MOVR ExpectBilletLength,AC1
             MOVR StandardK1Gap,AC2
           }
@@ -139,19 +139,18 @@
             MOVR -0.1,AC3
           }
           +R AC3,AC2
-          MOVR AC2,TargetOG
+          MOVR AC2,TargetDG
         }
 
         # Calcualte MonitorCounterTarget
-        MOVR TargetOG,AC1
-        -R 3.0,AC1
+        MOVR TargetDG,AC1
         *R MonitorGapRate,AC1
         ROUND AC1,MonitorCounterTarget
 
         # Move Block
-        BMD CP_IL1,CP_IL2,3
+        BMD CP_IL4,CP_IL5,12
         MOVR CurrentBilletLength,CP_IL1
-        MOVR TargetOG,CP_OG1
+        MOVR TargetDG,CP_DG1
         MOVR 0.0,CP_OL1
 
         MOVW 16#0402,SW0
