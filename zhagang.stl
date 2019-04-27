@@ -97,7 +97,7 @@
           -R AC2,AC1
           /R AC1,IS_OW
 
-          #OSX_OW=(OL2*OG2*IL1-IL2*OL1*OG1)/(IL2*OL1-OL2*IL1)
+          #OSX_OW_CG=(OL2*OG2*IL1-IL2*OL1*OG1)/(IL2*OL1-OL2*IL1)
           MOVR CP_OL2,AC1
           *R CP_DG2,AC1
           *R CP_IL1,AC1
@@ -115,13 +115,13 @@
           -R AC3,AC2
 
           /R AC2,AC1
-          MOVR AC1,OSX_OW
+          MOVR AC1,OSX_OW_CG
 
-          # IL/OL*(IS_OW)-OSX_OW
+          # IL/OL*(IS_OW)-OSX_OW_CG
           MOVR IS_OW,AC1
           *R CurrentBilletLength,AC1
           /R TargetSteelLength,AC1
-          -R OSX_OW,AC1
+          -R OSX_OW_CG,AC1
           MOVR AC1,TargetDG
         }
 
